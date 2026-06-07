@@ -1,4 +1,4 @@
-<project>
+<distributionManagement>
     <repository>
       <id>maven-releases</id>
       <url>http://13.217.34.151:8081/repository/maven-releases/</url>
@@ -7,4 +7,6 @@
       <id>maven-snapshots</id>
       <url>http://13.217.34.151:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
-  </project>
+  </distributionManagement>
+
+</project>
