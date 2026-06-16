@@ -1,2 +1,2 @@
-# DevOps-project
+# demo-app
 practice project 
