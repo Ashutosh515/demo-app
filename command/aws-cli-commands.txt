@@ -1,0 +1,112 @@
+    5  aws --version
+   36  aws --version
+   37  aws sts get-caller-identity
+   38  git --version java -version mvn -version docker --version docker compose version aws --version aws sts get-caller-identity
+   44  aws --version
+  380  aws ec2 create-vpc --cidr-block 10.0.0.0/20  --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=Prod-VPC}]'
+  381  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.2.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-Subnet-A}]'
+  382  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.3.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-DB-A}]'
+  383  aws ec2 create-internet-gateway --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=Prod-IGW}]'
+  384  aws ec2 attach-internet-gateway --internet-gateway-id igw-0939e285c11f85dc2 --vpc-id vpc-03dcbd5b3ffc18cff
+  385  aws ec2 create-route-table     --vpc-id vpc-03dcbd5b3ffc18cff     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PublicRouteTable}]'     --region us-east-1
+  386  aws ec2 create-route     --route-table-id rtb-024b4b11704d4e7b0     --destination-cidr-block 0.0.0.0/0     --gateway-id igw-0939e285c11f85dc2     --region us-east-1
+  387  aws ec2 create-route-table --vpc-id vpc-03dcbd5b3ffc18cff --tag-specifications 'ResourceType=route-table, Tags=[{Key=Name, Value=PrivateRouteTable}]'
+  388  aws ec2 allocate-address --domain vpc --region us-east-1
+  389  aws ec2 create-nat-gateway     --subnet-id subnet-02ed292f4524430ea     --allocation-id eipalloc-0978931a0db695fc4     --tag-specifications 'ResourceType=natgateway,Tags=[{Key=Name,Value=PrimaryNATGateway}]'     --region us-east-1
+  390  aws ec2 create-route     --route-table-id rtb-08446a60fadae8617     --destination-cidr-block 0.0.0.0/0     --nat-gateway-id nat-07ad64afc829e2e26     --region us-east-1
+  391  aws ec2 associate-route-table     --subnet-id subnet-02ed292f4524430ea     --route-table-id rtb-024b4b11704d4e7b0     --region us-east-1
+  392  aws ec2 associate-route-table     --subnet-id subnet-008639c808e42abfa     --route-table-id rtb-08446a60fadae8617     --region us-east-1
+  393  aws ec2 associate-route-table --subnet-id subnet-0e2fad3d51927f9c7 --route-table-id rtb-08446a60fadae8617 --region us-east-1
+  395  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.4.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Public-Subnet-B}]'
+  396  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.5.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-Subnet-B}]'
+  397  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.6.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-DB-B}]'
+  398  aws ec2 describe-subnets   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'Subnets[*].[SubnetId,Tags[?Key==`Name`].Value|[0],AvailabilityZone]'   --output table
+  399  aws ec2 modify-subnet-attribute --subnet-id subnet-02ed292f4524430ea --map-public-ip-on-launch
+  400  aws ec2 modify-subnet-attribute --subnet-id subnet-0d7b990d655000d93 --map-public-ip-on-launch
+  401  aws ec2 describe-subnets   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'Subnets[*].[Tags[?Key==`Name`].Value|[0],CidrBlock,AvailabilityZone,MapPublicIpOnLaunch]'   --output table
+  402  aws ec2 create-security-group   --group-name ALB-Public-SG   --description "Public Load Balancer SG"   --vpc-id vpc-03dcbd5b3ffc18cff   --region us-east-1
+  403  aws ec2 
+  404  aws ec2 authorize-security-group-ingress --group-id sg-02d3d3c10cd366264 --protocol tcp  --port 80 --cidr 0.0.0.0/0
+  405  aws ec2 authorize-security-group-ingress --group-id sg-02d3d3c10cd366264 --protocol tcp  --port 443 --cidr 0.0.0.0/0
+  406  aws ec2 create-security-group --group-name Frontend-SG --description "Frontend-ec2-SG" --vpc-id vpc-03dcbd5b3ffc18cff --region us-east-1
+  407  aws ec2 authorize-security-group-ingress --group-id sg-0e86e5f8e1919e297 --protocol tcp --port 80 --source-group sg-02d3d3c10cd366264
+  408  aws ec2 create-security-group --group-name ALB-internal-SG --description "Internal LoadBalancer SG" --vpc-id vpc-03dcbd5b3ffc18cff --region us-east-1
+  409  aws ec2 authorize-security-group-ingress --group-id sg-049944d5d61808668 --protocol tcp --port 8080 --source-group sg-0e86e5f8e1919e297
+  410  aws ec2 create-security-group   --group-name Backend-SG   --description "Backend EC2 SG"   --vpc-id vpc-03dcbd5b3ffc18cff
+  411  aws ec2 authorize-security-group-ingress   --group-id sg-0f7dd8b3e84c00a9d   --protocol tcp   --port 8081   --source-group sg-049944d5d61808668
+  412  aws ec2 create-security-group   --group-name RDS-SG   --description "RDS Security Group"   --vpc-id vpc-03dcbd5b3ffc18cff
+  413  aws ec2 authorize-security-group-ingress   --group-id sg-0832ac1103a464ccd   --protocol tcp   --port 3306   --source-group sg-0f7dd8b3e84c00a9d
+  414  aws rds delete-db-cluster     --db-cluster-identifier database-1     --skip-final-snapshot     --region us-east-1
+  415  aws rds create-db-instance   --db-instance-identifier prod-mysql   --db-instance-class db.t3.micro   --engine mysql   --master-username admin   --master-user-password Admin123   --allocated-storage 20   --multi-az   --db-subnet-group-name prod-db-subnet-group   --vpc-security-group-ids sg-0832ac1103a464ccd   --no-publicly-accessible   --backup-retention-period 7   --region us-east-1
+  416  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --region us-east-1
+  417  aws rds create-db-instance   --db-instance-identifier prod-mysql   --db-instance-class db.t3.micro   --engine mysql   --engine-version 8.4.8   --master-username admin   --master-user-password Admin123   --allocated-storage 20   --storage-type gp3   --multi-az   --db-subnet-group-name prod-db-subnet-group   --vpc-security-group-ids sg-0832ac1103a464ccd   --no-publicly-accessible   --backup-retention-period 7   --storage-encrypted   --deletion-protection   --region us-east-1
+  418  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --region us-east-1
+  419  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --query 'DBInstances[*].[DBInstanceIdentifier,MultiAZ,PubliclyAccessible,StorageEncrypted,StorageType,DeletionProtection]'   --output table
+  420  aws iam create-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile
+  421  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  422  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --associate-public-ip-address false   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  423  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  424  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  425  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --network-interfaces "DeviceIndex=0,SubnetId=subnet-008639c808e42abfa,Groups=[sg-0f7dd8b3e84c00a9d],AssociatePublicIpAddress=false"   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  426  aws iam get-instance-profile --instance-profile-name Backend-EC2-InstanceProfile
+  427  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  428  aws iam get-instance-profile --instance-profile-name Backend-EC2-InstanceProfile --region us-east-1
+  429  aws iam list-instance-profiles --region us-east-1
+  430  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Arn=arn:aws:iam::YOUR-ACCOUNT-ID:instance-profile/Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  431  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  432  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Arn=arn:aws:iam::040344563740:instance-profile/Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  433  aws sts get-caller-identity
+  434  aws ec2 describe-instances --region us-east-1
+  435  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  437  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  438  aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-app-1" --query 'Reservations[*].Instances[*].[InstanceId,IamInstanceProfile.Arn,State.Name]' --output table --region us-east-1
+  439  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssm   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  440  INSTANCE_ID=$(aws ec2 describe-instances \
+  446  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  447  aws iam list-instance-profiles   --query 'InstanceProfiles[*].[InstanceProfileName,Arn]'   --output table
+  448  aws iam get-role --role-name Backend-EC2-Role
+  449  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  450  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Arn,Roles[0].RoleName]'   --output table
+  451  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  452  aws iam create-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile
+  453  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  454  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  455  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Arn,Roles[0].RoleName]'   --output table
+  456  aws iam get-role --role-name Backend-EC2-Role
+  457  aws iam list-instance-profiles   --query 'InstanceProfiles[*].[InstanceProfileName,Roles[0].RoleName]'   --output table
+  458  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Roles[0].RoleName]'   --output table
+  459  aws ec2 modify-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --enable-dns-support   --region us-east-1
+  460  aws ec2 modify-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --enable-dns-hostnames   --region us-east-1
+  461  aws ec2 describe-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --attribute enableDnsSupport   --query 'EnableDnsSupport.Value'   --region us-east-1
+  462  aws ec2 describe-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --attribute enableDnsHostnames   --query 'EnableDnsHostnames.Value'   --region us-east-1
+  463  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  464  aws ec2 describe-instances   --instance-ids i-087c000aba26bf0c8   --query 'Reservations[*].Instances[*].[InstanceId,IamInstanceProfile.Arn,State.Name]'   --output table   --region us-east-1
+  465  aws ec2 authorize-security-group-ingress   --group-id sg-0f7dd8b3e84c00a9d   --protocol tcp   --port 443   --cidr 10.0.0.0/16   --region us-east-1
+  467  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssm   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  468  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssmmessages   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  469  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ec2messages   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  470  aws ec2 describe-vpc-endpoints   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'VpcEndpoints[*].[ServiceName,State]'   --output table   --region us-east-1
+  471  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --query 'DBInstances[*].[DBInstanceIdentifier,Endpoint.Address,DBInstanceStatus]'   --output table   --region us-east-1
+  472  aws s3 mb s3://devops-artifacts-$(date +%s) --region us-east-1
+  476  aws s3 cp target/demo-0.0.1-SNAPSHOT.jar s3://devops-artifacts-1782490407/artifacts/app.jar
+  477  aws iam attach-role-policy   --role-name Backend-Ec2-Role   --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+  478  aws ec2 describe-images   --owners self   --query 'Images[*].[ImageId,Name,State,CreationDate]'   --output table   --region us-east-1
+  479  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  480  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*]]'   --output table   --region us-east-1
+  481  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  482  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  483  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, ../DesiredCapacity, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  484  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName, DesiredCapacity, Instances[*].[InstanceId, HealthStatus, LifecycleState]]'   --output json   --region us-east-1
+  485  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  486  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName, DesiredCapacity,Instances[*]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  487  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,Instances[*]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  488  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,Instances[]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  489  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  490  aws elbv2 describe-target-health   --target-group-arn YOUR-BACKEND-TG-ARN   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  491  aws elbv2 describe-target-health   --target-group-arn arn:aws:elasticloadbalancing:us-east-1:040344563740:targetgroup/backend-tg/689ecab01cc8ce30   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  492  aws ec2 describe-instances   --filters "Name=tag:Name,Values=frontend-app-1"   --query 'Reservations[*].Instances[*].[InstanceId,PublicIpAddress,PrivateIpAddress,State.Name]'   --output table   --region us-east-1
+  493  aws elbv2 describe-load-balancers   --names backend-internal-alb   --query 'LoadBalancers[*].[DNSName,State.Code]'   --output table   --region us-east-1
+  494  aws ec2 describe-images   --owners self   --query 'Images[*].[ImageId,Name,State]'   --output table   --region us-east-1
+  495  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  497  aws elbv2 describe-target-health   --target-group-arn arn:aws:elasticloadbalancing:us-east-1:040344563740:targetgroup/backend-tg/2649119fc3e8ef4e   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  500  history | grep "aws " > aws-cli-commands.txt

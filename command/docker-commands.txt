@@ -1,0 +1,51 @@
+   17  sudo dnf install docker -y
+   18  sudo systemctl start docker
+   19  sudo systemctl enable docker
+   20  sudo systemctl status docker
+   25  sudo usermod -aG docker ec2-user 
+   26  newgrp docker
+   29  docker ps
+   30  docker info | grep "Server Version"
+   31  docker logs sonarqube --tail 50
+   32  docker ps
+   33  docker compose
+   34  docker compose version
+   35  docker compose --version
+   38  git --version java -version mvn -version docker --version docker compose version aws --version aws sts get-caller-identity
+   42  docker --version
+   43  docker compose version
+   45  sudo dnf search docker-compose
+   46  sudo dnf install docker-compose-plugin -y
+   47  sudo dnf search docker
+   48  sudo dnf install docker-compose -y
+   52  docker run -d --name postgres -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonarpass -e POSTGRES_DB=sonarqube postgres:15
+   53  docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+   79  docker volume create jenkins_home
+  115  sudo usermod -aG docker jenkins
+  116  groups docker
+  118  newgrp docker
+  119  docker logs sonarqube --tail 50
+  221  docker ps
+  222  docker ps -a
+  223  docker startc7c54a8b9d88
+  224  docker start c7c54a8b9d88
+  225  docker ps
+  280  docker ps
+  281  docker ps -a
+  325  docker images
+  327  docker ps -a
+  338  docker ps 
+  339  docker ps -a
+  340  docker start c7c54a8b9d88
+  365  nano dockerfile
+  369  docker build -t demo-app:latest .
+  370  docker run -d -p 8082:8081 --name demo-container demo-app:latest
+  372  docker ps
+  373  docker stop 48d2229ed0b9
+  374  docker ps
+  375  docker images
+  376  docker rm demo
+  377  docker rm demo-app
+  378  docker ps -a
+  379  docker rm demo-container
+  502  history | grep "docker" > docker-commands.txt

@@ -1,0 +1,41 @@
+    6  git --version
+    7  git -v
+    9  sudo dnf install git -y 
+   11  sudo dnf search git
+   21  git --version 
+   38  git --version java -version mvn -version docker --version docker compose version aws --version aws sts get-caller-identity
+   39  git --version
+  120  git ls-remote --heads https://github.com/Ashutosh515/DevOps-project.git
+  122  git clone https://github.com/Ashutosh515/DevOps-project.git
+  126  git ls-remote --heads https://github.com/Ashutosh515/DevOps-project.git
+  177  git branch -a
+  178  git remote -v
+  180  git ls-tree -r HEAD --name-only
+  182  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  183  git config --global --add safe.directory /var/lib/jenkins/workspace/Java-demo-app
+  184  git ls-tree -r HEAD --name-only
+  187  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  188  git status
+  236  git init
+  237  git add .
+  238  git commit -m "Initial Spring Boot App"
+  239  git config --global user.name "Ashutosh515"
+  240  git commit -m "Initial Spring Boot App"
+  241  git config --global user.email "your.email@example.com"
+  242  git config --global user.name "Ashutosh515"
+  243  git config --global user.email "ashutoshgaikwad625@gmail.com"
+  244  git commit -m "Initial Spring Boot App"
+  245  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  246  git branch -M main
+  247  git push -u origin main
+  248  git remote add origin https://github.com/Ashutosh515/demo-app.git
+  249  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  250  git branch -M main
+  251  git push -u origin main
+  252  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  253  git branch -M main
+  254  git push -u origin main
+  270  git sparse-checkout set DevOps-Project-01
+  272  git clone --depth 1 --filter=blob:none --sparse https://github.com/NotHarshhaa/DevOps-Projects.git
+  276  git sparse-checkout set DevOps-Project-01
+  506  history | grep "git" > git-commands.txt

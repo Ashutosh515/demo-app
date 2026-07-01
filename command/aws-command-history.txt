@@ -1,0 +1,498 @@
+    1  sudo hostnamectl
+    2  sudo hostnamectl set-hostname management-server
+    3  hostname
+    4  sudo dnf update -y
+    5  aws --version
+    6  git --version
+    7  git -v
+    8  cat /etc/os-release
+    9  sudo dnf install git -y 
+   10  sudo dnf search java-17
+   11  sudo dnf search git
+   12  clear
+   13  sudo dnf search java-17
+   14  sudo dnf install java-17-amazon-corretto -y
+   15  sudo dnf search maven
+   16  sudo dnf install maven -y
+   17  sudo dnf install docker -y
+   18  sudo systemctl start docker
+   19  sudo systemctl enable docker
+   20  sudo systemctl status docker
+   21  git --version 
+   22  java --version 
+   23  maven --version
+   24  mvn --version
+   25  sudo usermod -aG docker ec2-user 
+   26  newgrp docker
+   27  groups jenkins
+   28  sudo systemctl restart jenkins
+   29  docker ps
+   30  docker info | grep "Server Version"
+   31  docker logs sonarqube --tail 50
+   32  docker ps
+   33  docker compose
+   34  docker compose version
+   35  docker compose --version
+   36  aws --version
+   37  aws sts get-caller-identity
+   38  git --version java -version mvn -version docker --version docker compose version aws --version aws sts get-caller-identity
+   39  git --version
+   40  java -version
+   41  mvn -version
+   42  docker --version
+   43  docker compose version
+   44  aws --version
+   45  sudo dnf search docker-compose
+   46  sudo dnf install docker-compose-plugin -y
+   47  sudo dnf search docker
+   48  sudo dnf install docker-compose -y
+   49  free -h
+   50  nproc
+   51  df -h
+   52  docker run -d --name postgres -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonarpass -e POSTGRES_DB=sonarqube postgres:15
+   53  docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+   54  sudo fallocate -l 2G /swapfile
+   55  sudo chmod 600 /swapfile
+   56  sudo mkswap /swapfile
+   57  sudo swapon /swapfile
+   58  free -h
+   59  echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+   60  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+   61  sudo tee /etc/yum.repos.d/jenkins.repo > /dev/null <<EOF
+   62  [jenkins]
+   63  name=Jenkins-stable
+   64  baseurl=https://pkg.jenkins.io/redhat-stable
+   65  gpgcheck=1
+   66  gpgkey=https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+   67  EOF
+   68  sudo dnf makecache
+   69  sudo dnf install jenkins -y
+   70  rpm -qa | grep jenkins4
+   71  rpm -qa | grep jenkins
+   72  sudo systemctl enable jenkins
+   73  sudo dnf clean all
+   74  sudo rpm -qa gpg-pubkey*
+   75  sudo rpm -qi gpg-pubkey | grep -E "Version|Summary"
+   76  cat /etc/yum.repos.d/jenkins.repo
+   77  sudo dnf list jenkins
+   78  sudo dnf install jenkins --nogpgcheck -y
+   79  docker volume create jenkins_home
+   80  sudo dnf list jenkins
+   81  cat /etc/yum.repos.d/jenkins.repo
+   82  rpm -qi jenkins
+   83  sudo find / -name "jenkins.service" 2>/dev/null
+   84  sudo systemctl daemon-reload
+   85  sudo systemctl list-unit-files | grep jenkins
+   86  ls -la /usr/share/jenkins
+   87  ls -la /var/lib/jenkins
+   88  which java
+   89  readlink -f $(which java)
+   90  sudo systemctl daemon-reload
+   91  sudo systemctl enable jenkins
+   92  sudo systemctl start jenkins
+   93  systemctl status jenkins.service 
+   94  journalctl -xeu jenkins.service
+   95  cat /usr/lib/systemd/system/jenkins.service
+   96  sudo journalctl -u jenkins.service -n 100 --no-pager
+   97  sudo ls -lah /var/log/jenkins
+   98  sudo cat /var/log/jenkins/jenkins.log | tail -50
+   99  sudo cat /etc/sysconfig/jenkins
+  100  sudo ls -lah /etc/sysconfig/
+  101  sudo find /usr -name "*.war" | grep jenkins
+  102  sudo ss -tulpn | grep 8080
+  103  sudo journalctl -u jenkins.service -n 100 --no-pager
+  104  sudo dnf search corretto
+  105  sudo dnf install java-21-amazon-corretto java-21-amazon-corretto-devel -y
+  106  /usr/lib/jvm/java-21-amazon-corretto/bin/java -version
+  107  openjdk version "21.x"
+  108  sudo alternatives --config java
+  109  java -version
+  110  sudo systemctl daemon-reload
+  111  sudo systemctl restart jenkins
+  112  sudo systemctl status jenkins
+  113  sudo ss -tulpn | grep 8080
+  114  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+  115  sudo usermod -aG docker jenkins
+  116  groups docker
+  117  groups jenkins
+  118  newgrp docker
+  119  docker logs sonarqube --tail 50
+  120  git ls-remote --heads https://github.com/Ashutosh515/DevOps-project.git
+  121  find . -name "*.java"
+  122  git clone https://github.com/Ashutosh515/DevOps-project.git
+  123  ls
+  124  cd DevOps-project/
+  125  ls
+  126  git ls-remote --heads https://github.com/Ashutosh515/DevOps-project.git
+  127  cd
+  128  find / -name "jenkins*"
+  129  find / -name "Jenkins workspace"
+  130  cd /var/
+  131  ls
+  132  cd lib/
+  133  ls
+  134  cd jenkins/
+  135  ls
+  136  cd workspace/
+  137  ls
+  138  cd Java-demo-app
+  139  ls
+  140  cd .
+  141  cd ..
+  142  find . -name "*.java"
+  143  ls
+  144  ls -la Java-demo-app
+  145  ls -la Java-demo-app/target/
+  146  ls -la Java-demo-app/target/maven-archiver/
+  147  ls -la Java-demo-app@tmp/
+  148  cd /var/lib/jenkins/workspace/
+  149  find . -name "*.java"
+  150  cd ..
+  151  ls
+  152  cd ..
+  153  ls
+  154  cd ..
+  155  cd
+  156  ls
+  157  cd /var/lib/jenkins/workspace/Java-demo-app
+  158  find src -name "*.java" | xargs grep "static void main"
+  159  ls
+  160  tree -L 4 src
+  161  cat pom.xml
+  162  cd /var/lib/jenkins/workspace/Java-demo-app
+  163  find src -name "*.java"
+  164  grep -R "static void main" src
+  165  grep -R "@SpringBootApplication" src
+  166  sudo dnf install tree -y
+  167  tree src
+  168  tree src/main/java
+  169  find src -name "*.java"
+  170  grep -R "static void main" src
+  171  find src -name "*.java"
+  172  grep -R "static void main" src
+  173  grep -R "@SpringBootApplication" src
+  174  pwd
+  175  ls -lah
+  176  find . -maxdepth 3 -type d
+  177  git branch -a
+  178  git remote -v
+  179  find . -type f | head -50
+  180  git ls-tree -r HEAD --name-only
+  181  ls -ld /var/lib/jenkins/workspace/Java-demo-app
+  182  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  183  git config --global --add safe.directory /var/lib/jenkins/workspace/Java-demo-app
+  184  git ls-tree -r HEAD --name-only
+  185  sudo -u jenkins ls -lah /var/lib/jenkins/workspace/Java-demo-app
+  186  sudo -u jenkins find /var/lib/jenkins/workspace/Java-demo-app -type f
+  187  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  188  git status
+  189  cd ~
+  190  mkdir demo-app
+  191  ls
+  192  cd demo-app
+  193  mkdir -p src/main/java/com/example/demo
+  194  mkdir -p src/main/resources
+  195  nano src/main/java/com/example/demo/DemoApplication.java
+  196  cat src/main/java/com/example/demo/DemoApplication.java
+  197  ls
+  198  nano pom.xml
+  199  ls
+  200  mvn clean package
+  201  java -jar target/demo-0.0.1-SNAPSHOT.jar
+  202  nano src/main/resources/application.properties
+  203  ls
+  204  cd src/
+  205  ls
+  206  cd ..
+  207  ls
+  208  ls src/main/resources/
+  209  ls
+  210  find . -name "application.properties"
+  211  find . -type f -name "*.properties"
+  212  nano src/main/resources/application.properties
+  213  java -jar target/demo-0.0.1-SNAPSHOT.jar --server.port=8081
+  214  nano src/main/resources/application.properties
+  215  nano src/main/resources/application.propertiesō 
+  216  ls src/main/resources/
+  217  mv src/main/resources/application.propertiesō src/main/resources/application.properties
+  218  ls src/main/resources/
+  219  mvn clean package
+  220  java -jar target/demo-0.0.1-SNAPSHOT.jar
+  221  docker ps
+  222  docker ps -a
+  223  docker startc7c54a8b9d88
+  224  docker start c7c54a8b9d88
+  225  docker ps
+  226  ls
+  227  cd 
+  228  ls
+  229  cd DevOps-project/
+  230  l
+  231  ls
+  232  pwd
+  233  ls /home/ec2-user/demo-app/
+  234  cd /home/ec2-user/demo-app/
+  235  ls
+  236  git init
+  237  git add .
+  238  git commit -m "Initial Spring Boot App"
+  239  git config --global user.name "Ashutosh515"
+  240  git commit -m "Initial Spring Boot App"
+  241  git config --global user.email "your.email@example.com"
+  242  git config --global user.name "Ashutosh515"
+  243  git config --global user.email "ashutoshgaikwad625@gmail.com"
+  244  git commit -m "Initial Spring Boot App"
+  245  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  246  git branch -M main
+  247  git push -u origin main
+  248  git remote add origin https://github.com/Ashutosh515/demo-app.git
+  249  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  250  git branch -M main
+  251  git push -u origin main
+  252  git remote add origin https://github.com/Ashutosh515/demo-devops-app.git
+  253  git branch -M main
+  254  git push -u origin main
+  255  ls
+  256  cd DevOps-project/
+  257  ls
+  258  ls de
+  259  cd
+  260  ls demo-app/
+  261  ls -la
+  262  ls -la demo-app/
+  263  cd demo-app/
+  264  cd target/
+  265  ls
+  266  ls -la
+  267  ls
+  268  cd DevOps-project/
+  269  ls
+  270  git sparse-checkout set DevOps-Project-01
+  271  ls
+  272  git clone --depth 1 --filter=blob:none --sparse https://github.com/NotHarshhaa/DevOps-Projects.git
+  273  ls
+  274  cd DevOps-Projects/
+  275  ls
+  276  git sparse-checkout set DevOps-Project-01
+  277  ls
+  278  cd DevOps-Project-01/
+  279  ls
+  280  docker ps
+  281  docker ps -a
+  282  ls
+  283  cd DevOps-project/
+  284  ls
+  285  ls -la
+  286  Cd DevOps-Projects/
+  287  cd DevOps-Projects/
+  288  ls
+  289  cd DevOps-Project-01/
+  290  ls
+  291  cd Java-Login-App/
+  292  ls
+  293  pwd
+  294  cd
+  295  ls
+  296  cd demo-app/
+  297  ls
+  298  cd src/
+  299  ls
+  300  cd main/
+  301  ls
+  302  cd java/
+  303  ls
+  304  cd com/
+  305  ls
+  306  cd example/
+  307  ls
+  308   cd demo/
+  309  ls
+  310  pwd
+  311  cat DemoApplication.java 
+  312  cd ..
+  313  cd..
+  314  cd ..
+  315  cd ...
+  316  cd ..
+  317  ls
+  318  cd resources/
+  319  ls
+  320  cat application.properties 
+  321  ls
+  322  cd 
+  323  cd demo-app/
+  324  cat pom.xml 
+  325  docker images
+  326  docke ps -a
+  327  docker ps -a
+  328  l
+  329  ls
+  330  ls src
+  331  ls src/main/
+  332  ls src/main/java/
+  333  ls src/main/java/com/
+  334  ls src/main/java/com/example/
+  335  ls src/main/java/com/example/demo/DemoApplication.java 
+  336  pwd
+  337  java -jar target/demo-0.0.1-SNAPSHOT.jar
+  338  docker ps 
+  339  docker ps -a
+  340  docker start c7c54a8b9d88
+  341  pwd
+  342  ls
+  343  cd demo
+  344  cd demo-app/
+  345  ls
+  346  ls src
+  347  ls target/
+  348  ls -la target/
+  349  cat target/demo-0.0.1-SNAPSHOT.jar
+  350  pwd
+  351  clear
+  352  ls 
+  353  ls target/
+  354  cat target/demo-0.0.1-SNAPSHOT.jar
+  355  clear
+  356  ls -la 
+  357  ls target/
+  358  man fifo
+  359  man file
+  360  file target/demo-0.0.1-SNAPSHOT.jar
+  361  file -e target/demo-0.0.1-SNAPSHOT.jar
+  362  file --help 
+  363  ls target/
+  364  pwd
+  365  nano dockerfile
+  366  ls
+  367  nano Dockerfile
+  368  ls
+  369  docker build -t demo-app:latest .
+  370  docker run -d -p 8082:8081 --name demo-container demo-app:latest
+  371  docke rps
+  372  docker ps
+  373  docker stop 48d2229ed0b9
+  374  docker ps
+  375  docker images
+  376  docker rm demo
+  377  docker rm demo-app
+  378  docker ps -a
+  379  docker rm demo-container
+  380  aws ec2 create-vpc --cidr-block 10.0.0.0/20  --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=Prod-VPC}]'
+  381  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.2.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-Subnet-A}]'
+  382  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.3.0/24 --availability-zone us-east-1a --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-DB-A}]'
+  383  aws ec2 create-internet-gateway --tag-specifications 'ResourceType=internet-gateway,Tags=[{Key=Name,Value=Prod-IGW}]'
+  384  aws ec2 attach-internet-gateway --internet-gateway-id igw-0939e285c11f85dc2 --vpc-id vpc-03dcbd5b3ffc18cff
+  385  aws ec2 create-route-table     --vpc-id vpc-03dcbd5b3ffc18cff     --tag-specifications 'ResourceType=route-table,Tags=[{Key=Name,Value=PublicRouteTable}]'     --region us-east-1
+  386  aws ec2 create-route     --route-table-id rtb-024b4b11704d4e7b0     --destination-cidr-block 0.0.0.0/0     --gateway-id igw-0939e285c11f85dc2     --region us-east-1
+  387  aws ec2 create-route-table --vpc-id vpc-03dcbd5b3ffc18cff --tag-specifications 'ResourceType=route-table, Tags=[{Key=Name, Value=PrivateRouteTable}]'
+  388  aws ec2 allocate-address --domain vpc --region us-east-1
+  389  aws ec2 create-nat-gateway     --subnet-id subnet-02ed292f4524430ea     --allocation-id eipalloc-0978931a0db695fc4     --tag-specifications 'ResourceType=natgateway,Tags=[{Key=Name,Value=PrimaryNATGateway}]'     --region us-east-1
+  390  aws ec2 create-route     --route-table-id rtb-08446a60fadae8617     --destination-cidr-block 0.0.0.0/0     --nat-gateway-id nat-07ad64afc829e2e26     --region us-east-1
+  391  aws ec2 associate-route-table     --subnet-id subnet-02ed292f4524430ea     --route-table-id rtb-024b4b11704d4e7b0     --region us-east-1
+  392  aws ec2 associate-route-table     --subnet-id subnet-008639c808e42abfa     --route-table-id rtb-08446a60fadae8617     --region us-east-1
+  393  aws ec2 associate-route-table --subnet-id subnet-0e2fad3d51927f9c7 --route-table-id rtb-08446a60fadae8617 --region us-east-1
+  394  history
+  395  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.4.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Public-Subnet-B}]'
+  396  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.5.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-Subnet-B}]'
+  397  aws ec2 create-subnet --vpc-id vpc-03dcbd5b3ffc18cff --cidr-block 10.0.6.0/24 --availability-zone us-east-1b --tag-specifications 'ResourceType=subnet, Tags=[{Key=Name, Value=Private-DB-B}]'
+  398  aws ec2 describe-subnets   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'Subnets[*].[SubnetId,Tags[?Key==`Name`].Value|[0],AvailabilityZone]'   --output table
+  399  aws ec2 modify-subnet-attribute --subnet-id subnet-02ed292f4524430ea --map-public-ip-on-launch
+  400  aws ec2 modify-subnet-attribute --subnet-id subnet-0d7b990d655000d93 --map-public-ip-on-launch
+  401  aws ec2 describe-subnets   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'Subnets[*].[Tags[?Key==`Name`].Value|[0],CidrBlock,AvailabilityZone,MapPublicIpOnLaunch]'   --output table
+  402  aws ec2 create-security-group   --group-name ALB-Public-SG   --description "Public Load Balancer SG"   --vpc-id vpc-03dcbd5b3ffc18cff   --region us-east-1
+  403  aws ec2 
+  404  aws ec2 authorize-security-group-ingress --group-id sg-02d3d3c10cd366264 --protocol tcp  --port 80 --cidr 0.0.0.0/0
+  405  aws ec2 authorize-security-group-ingress --group-id sg-02d3d3c10cd366264 --protocol tcp  --port 443 --cidr 0.0.0.0/0
+  406  aws ec2 create-security-group --group-name Frontend-SG --description "Frontend-ec2-SG" --vpc-id vpc-03dcbd5b3ffc18cff --region us-east-1
+  407  aws ec2 authorize-security-group-ingress --group-id sg-0e86e5f8e1919e297 --protocol tcp --port 80 --source-group sg-02d3d3c10cd366264
+  408  aws ec2 create-security-group --group-name ALB-internal-SG --description "Internal LoadBalancer SG" --vpc-id vpc-03dcbd5b3ffc18cff --region us-east-1
+  409  aws ec2 authorize-security-group-ingress --group-id sg-049944d5d61808668 --protocol tcp --port 8080 --source-group sg-0e86e5f8e1919e297
+  410  aws ec2 create-security-group   --group-name Backend-SG   --description "Backend EC2 SG"   --vpc-id vpc-03dcbd5b3ffc18cff
+  411  aws ec2 authorize-security-group-ingress   --group-id sg-0f7dd8b3e84c00a9d   --protocol tcp   --port 8081   --source-group sg-049944d5d61808668
+  412  aws ec2 create-security-group   --group-name RDS-SG   --description "RDS Security Group"   --vpc-id vpc-03dcbd5b3ffc18cff
+  413  aws ec2 authorize-security-group-ingress   --group-id sg-0832ac1103a464ccd   --protocol tcp   --port 3306   --source-group sg-0f7dd8b3e84c00a9d
+  414  aws rds delete-db-cluster     --db-cluster-identifier database-1     --skip-final-snapshot     --region us-east-1
+  415  aws rds create-db-instance   --db-instance-identifier prod-mysql   --db-instance-class db.t3.micro   --engine mysql   --master-username admin   --master-user-password Admin123   --allocated-storage 20   --multi-az   --db-subnet-group-name prod-db-subnet-group   --vpc-security-group-ids sg-0832ac1103a464ccd   --no-publicly-accessible   --backup-retention-period 7   --region us-east-1
+  416  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --region us-east-1
+  417  aws rds create-db-instance   --db-instance-identifier prod-mysql   --db-instance-class db.t3.micro   --engine mysql   --engine-version 8.4.8   --master-username admin   --master-user-password Admin123   --allocated-storage 20   --storage-type gp3   --multi-az   --db-subnet-group-name prod-db-subnet-group   --vpc-security-group-ids sg-0832ac1103a464ccd   --no-publicly-accessible   --backup-retention-period 7   --storage-encrypted   --deletion-protection   --region us-east-1
+  418  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --region us-east-1
+  419  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --query 'DBInstances[*].[DBInstanceIdentifier,MultiAZ,PubliclyAccessible,StorageEncrypted,StorageType,DeletionProtection]'   --output table
+  420  aws iam create-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile
+  421  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  422  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --associate-public-ip-address false   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  423  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  424  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  425  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --network-interfaces "DeviceIndex=0,SubnetId=subnet-008639c808e42abfa,Groups=[sg-0f7dd8b3e84c00a9d],AssociatePublicIpAddress=false"   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  426  aws iam get-instance-profile --instance-profile-name Backend-EC2-InstanceProfile
+  427  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  428  aws iam get-instance-profile --instance-profile-name Backend-EC2-InstanceProfile --region us-east-1
+  429  aws iam list-instance-profiles --region us-east-1
+  430  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Arn=arn:aws:iam::YOUR-ACCOUNT-ID:instance-profile/Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  431  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  432  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --iam-instance-profile Arn=arn:aws:iam::040344563740:instance-profile/Backend-EC2-InstanceProfile   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  433  aws sts get-caller-identity
+  434  aws ec2 describe-instances --region us-east-1
+  435  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  436  history
+  437  aws ec2 run-instances   --image-id ami-08f44e8eca9095668   --instance-type t3.micro   --subnet-id subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --no-associate-public-ip-address   --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=backend-app-1}]'   --region us-east-1
+  438  aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-app-1" --query 'Reservations[*].Instances[*].[InstanceId,IamInstanceProfile.Arn,State.Name]' --output table --region us-east-1
+  439  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssm   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  440  INSTANCE_ID=$(aws ec2 describe-instances \
+  441    --filters "Name=tag:Name,Values=backend-app-1" \
+  442    --query 'Reservations[*].Instances[*].InstanceId' \
+  443    --output text \
+  444    --region us-east-1)
+  445  echo $INSTANCE_ID
+  446  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  447  aws iam list-instance-profiles   --query 'InstanceProfiles[*].[InstanceProfileName,Arn]'   --output table
+  448  aws iam get-role --role-name Backend-EC2-Role
+  449  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  450  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Arn,Roles[0].RoleName]'   --output table
+  451  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  452  aws iam create-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile
+  453  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  454  aws iam add-role-to-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --role-name Backend-EC2-Role
+  455  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Arn,Roles[0].RoleName]'   --output table
+  456  aws iam get-role --role-name Backend-EC2-Role
+  457  aws iam list-instance-profiles   --query 'InstanceProfiles[*].[InstanceProfileName,Roles[0].RoleName]'   --output table
+  458  aws iam get-instance-profile   --instance-profile-name Backend-EC2-InstanceProfile   --query 'InstanceProfile.[InstanceProfileName,Roles[0].RoleName]'   --output table
+  459  aws ec2 modify-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --enable-dns-support   --region us-east-1
+  460  aws ec2 modify-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --enable-dns-hostnames   --region us-east-1
+  461  aws ec2 describe-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --attribute enableDnsSupport   --query 'EnableDnsSupport.Value'   --region us-east-1
+  462  aws ec2 describe-vpc-attribute   --vpc-id vpc-03dcbd5b3ffc18cff   --attribute enableDnsHostnames   --query 'EnableDnsHostnames.Value'   --region us-east-1
+  463  aws ec2 associate-iam-instance-profile   --instance-id i-087c000aba26bf0c8   --iam-instance-profile Name=Backend-EC2-InstanceProfile   --region us-east-1
+  464  aws ec2 describe-instances   --instance-ids i-087c000aba26bf0c8   --query 'Reservations[*].Instances[*].[InstanceId,IamInstanceProfile.Arn,State.Name]'   --output table   --region us-east-1
+  465  aws ec2 authorize-security-group-ingress   --group-id sg-0f7dd8b3e84c00a9d   --protocol tcp   --port 443   --cidr 10.0.0.0/16   --region us-east-1
+  466  # Endpoint 1 — SSM Core
+  467  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssm   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  468  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ssmmessages   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  469  aws ec2 create-vpc-endpoint   --vpc-id vpc-03dcbd5b3ffc18cff   --vpc-endpoint-type Interface   --service-name com.amazonaws.us-east-1.ec2messages   --subnet-ids subnet-008639c808e42abfa   --security-group-ids sg-0f7dd8b3e84c00a9d   --private-dns-enabled   --region us-east-1
+  470  aws ec2 describe-vpc-endpoints   --filters "Name=vpc-id,Values=vpc-03dcbd5b3ffc18cff"   --query 'VpcEndpoints[*].[ServiceName,State]'   --output table   --region us-east-1
+  471  aws rds describe-db-instances   --db-instance-identifier prod-mysql   --query 'DBInstances[*].[DBInstanceIdentifier,Endpoint.Address,DBInstanceStatus]'   --output table   --region us-east-1
+  472  aws s3 mb s3://devops-artifacts-$(date +%s) --region us-east-1
+  473  cd demo-app/
+  474  ls
+  475  mvn clean package -DskipTests
+  476  aws s3 cp target/demo-0.0.1-SNAPSHOT.jar s3://devops-artifacts-1782490407/artifacts/app.jar
+  477  aws iam attach-role-policy   --role-name Backend-Ec2-Role   --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+  478  aws ec2 describe-images   --owners self   --query 'Images[*].[ImageId,Name,State,CreationDate]'   --output table   --region us-east-1
+  479  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  480  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*]]'   --output table   --region us-east-1
+  481  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  482  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  483  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, ../DesiredCapacity, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  484  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName, DesiredCapacity, Instances[*].[InstanceId, HealthStatus, LifecycleState]]'   --output json   --region us-east-1
+  485  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  486  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName, DesiredCapacity,Instances[*]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  487  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,Instances[*]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  488  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,Instances[]].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  489  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].Instances[].[CurrentAncestors.AutoScalingGroupName, InstanceId, HealthStatus, LifecycleState]'   --output table   --region us-east-1
+  490  aws elbv2 describe-target-health   --target-group-arn YOUR-BACKEND-TG-ARN   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  491  aws elbv2 describe-target-health   --target-group-arn arn:aws:elasticloadbalancing:us-east-1:040344563740:targetgroup/backend-tg/689ecab01cc8ce30   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  492  aws ec2 describe-instances   --filters "Name=tag:Name,Values=frontend-app-1"   --query 'Reservations[*].Instances[*].[InstanceId,PublicIpAddress,PrivateIpAddress,State.Name]'   --output table   --region us-east-1
+  493  aws elbv2 describe-load-balancers   --names backend-internal-alb   --query 'LoadBalancers[*].[DNSName,State.Code]'   --output table   --region us-east-1
+  494  aws ec2 describe-images   --owners self   --query 'Images[*].[ImageId,Name,State]'   --output table   --region us-east-1
+  495  aws autoscaling describe-auto-scaling-groups   --auto-scaling-group-names backend-asg   --query 'AutoScalingGroups[*].[AutoScalingGroupName,DesiredCapacity,Instances[*].[InstanceId,HealthStatus,LifecycleState]]'   --output table   --region us-east-1
+  496  # Check Target Group health
+  497  aws elbv2 describe-target-health   --target-group-arn arn:aws:elasticloadbalancing:us-east-1:040344563740:targetgroup/backend-tg/2649119fc3e8ef4e   --query 'TargetHealthDescriptions[*].[Target.Id,TargetHealth.State,TargetHealth.Description]'   --output table   --region us-east-1
+  498  history > aws-command-history.txt

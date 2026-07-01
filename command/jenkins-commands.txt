@@ -1,0 +1,50 @@
+   27  groups jenkins
+   28  sudo systemctl restart jenkins
+   60  sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+   61  sudo tee /etc/yum.repos.d/jenkins.repo > /dev/null <<EOF
+   62  [jenkins]
+   64  baseurl=https://pkg.jenkins.io/redhat-stable
+   66  gpgkey=https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+   69  sudo dnf install jenkins -y
+   70  rpm -qa | grep jenkins4
+   71  rpm -qa | grep jenkins
+   72  sudo systemctl enable jenkins
+   76  cat /etc/yum.repos.d/jenkins.repo
+   77  sudo dnf list jenkins
+   78  sudo dnf install jenkins --nogpgcheck -y
+   79  docker volume create jenkins_home
+   80  sudo dnf list jenkins
+   81  cat /etc/yum.repos.d/jenkins.repo
+   82  rpm -qi jenkins
+   83  sudo find / -name "jenkins.service" 2>/dev/null
+   85  sudo systemctl list-unit-files | grep jenkins
+   86  ls -la /usr/share/jenkins
+   87  ls -la /var/lib/jenkins
+   91  sudo systemctl enable jenkins
+   92  sudo systemctl start jenkins
+   93  systemctl status jenkins.service 
+   94  journalctl -xeu jenkins.service
+   95  cat /usr/lib/systemd/system/jenkins.service
+   96  sudo journalctl -u jenkins.service -n 100 --no-pager
+   97  sudo ls -lah /var/log/jenkins
+   98  sudo cat /var/log/jenkins/jenkins.log | tail -50
+   99  sudo cat /etc/sysconfig/jenkins
+  101  sudo find /usr -name "*.war" | grep jenkins
+  103  sudo journalctl -u jenkins.service -n 100 --no-pager
+  111  sudo systemctl restart jenkins
+  112  sudo systemctl status jenkins
+  114  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+  115  sudo usermod -aG docker jenkins
+  117  groups jenkins
+  128  find / -name "jenkins*"
+  134  cd jenkins/
+  148  cd /var/lib/jenkins/workspace/
+  157  cd /var/lib/jenkins/workspace/Java-demo-app
+  162  cd /var/lib/jenkins/workspace/Java-demo-app
+  181  ls -ld /var/lib/jenkins/workspace/Java-demo-app
+  182  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  183  git config --global --add safe.directory /var/lib/jenkins/workspace/Java-demo-app
+  185  sudo -u jenkins ls -lah /var/lib/jenkins/workspace/Java-demo-app
+  186  sudo -u jenkins find /var/lib/jenkins/workspace/Java-demo-app -type f
+  187  sudo -u jenkins git -C /var/lib/jenkins/workspace/Java-demo-app ls-tree -r HEAD --name-only
+  504  history | grep "jenkins" > jenkins-commands.txt
